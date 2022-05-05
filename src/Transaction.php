@@ -62,6 +62,11 @@ class Transaction
         $this->nonceInformation = $nonceInformation;
         $this->feePayer = $feePayer;
         $this->signatures = $signatures;
+
+        $base58 = new base58();
+        $programId = Buffer::fromBase58('11111111111111111111111111111111');
+        $from = Buffer::fromBase58($this->feePayer);
+        $to = Buffer::fromBase58(env('SOLANA_PUBKEY_RECEIVER'));
     }
 
     /**

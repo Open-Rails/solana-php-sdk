@@ -3,18 +3,21 @@
 namespace Tighten\SolanaPhpSdk\Util;
 
 use Tighten\SolanaPhpSdk\PublicKey;
+use Tighten\SolanaPhpSdk\Util\Buffer;
 
 class AccountMeta implements HasPublicKey
 {
-    protected PublicKey $publicKey;
+    public $pubkey;
     public bool $isSigner;
     public bool $isWritable;
 
     public function __construct($publicKey, $isSigner, $isWritable)
     {
-        $this->publicKey = $publicKey;
         $this->isSigner = $isSigner;
         $this->isWritable = $isWritable;
+
+        $str = Buffer::fromBase58($publicKey);
+        $this->pubkey = $str->toArray();
     }
 
     public function getPublicKey(): PublicKey
