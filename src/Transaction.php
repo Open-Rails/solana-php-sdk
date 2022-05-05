@@ -14,6 +14,7 @@ use Tighten\SolanaPhpSdk\Util\NonceInformation;
 use Tighten\SolanaPhpSdk\Util\ShortVec;
 use Tighten\SolanaPhpSdk\Util\SignaturePubkeyPair;
 use Tighten\SolanaPhpSdk\Util\Signer;
+use StephenHill\Base58;
 
 class Transaction
 {
