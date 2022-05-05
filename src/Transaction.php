@@ -46,6 +46,7 @@ class Transaction
     public ?string $recentBlockhash;
     public ?NonceInformation $nonceInformation;
     public ?PublicKey $feePayer;
+    public ?PublicKey $toPubkey;
     /**
      * @var array<TransactionInstruction>
      */
@@ -55,7 +56,8 @@ class Transaction
         ?string $recentBlockhash = null,
         ?NonceInformation $nonceInformation = null,
         ?PublicKey $feePayer = null,
-        ?array $signatures = []
+        ?array $signatures = [],
+        ?PublicKey $toPubkey = null
     )
     {
         $this->recentBlockhash = $recentBlockhash;
@@ -66,7 +68,7 @@ class Transaction
         $base58 = new base58();
         $programId = Buffer::fromBase58('11111111111111111111111111111111');
         $from = Buffer::fromBase58($this->feePayer);
-        $to = Buffer::fromBase58(env('SOLANA_PUBKEY_RECEIVER'));
+        $to = Buffer::fromBase58($toPubkey);
     }
 
     /**
