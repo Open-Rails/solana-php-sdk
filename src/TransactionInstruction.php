@@ -18,7 +18,7 @@ class TransactionInstruction
     public function __construct(PublicKey $programId, array $keys, $data = null)
     {
         $base58 = new base58();
-        $programId = Buffer::fromBase58('11111111111111111111111111111111');
+        $programId = Buffer::fromBase58($programId);
         $this->programId = $programId->toArray();
         $this->keys = $keys;
         $this->data = $data;

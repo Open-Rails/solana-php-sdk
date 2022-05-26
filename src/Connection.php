@@ -7,6 +7,9 @@ use Tighten\SolanaPhpSdk\Util\Commitment;
 
 class Connection extends Program
 {
+    // SPL-TOKEN
+    public const SOLANA_TOKEN_PROGRAM_ID = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
+
     /**
      * @param string $pubKey
      * @return array
@@ -89,5 +92,26 @@ class Connection extends Program
                 'preflightCommitment' => 'confirmed',
             ],
         ]);
+    }
+
+    /**
+     * `getTokenAccountsByOwner` returns a list of token accounts owned by a given public key
+     * 
+     * @param string pubKey The public key of the account you want to query
+     * 
+     * @return An array of token accounts.
+     */
+    public function getTokenAccountsByOwner(string $pubKey)
+    {
+        return $this->client->call('getTokenAccountsByOwner', [
+            $pubKey,
+            [
+                'programId' => self::SOLANA_TOKEN_PROGRAM_ID,
+            ],
+            [
+                'encoding' => 'jsonParsed',
+            ],
+        ]);
+
     }
 }
