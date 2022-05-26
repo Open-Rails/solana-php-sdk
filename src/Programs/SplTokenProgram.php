@@ -40,7 +40,8 @@ class SplTokenProgram extends Program
         $data = [
             // https://github.com/solana-labs/solana-program-library/blob/48fbb5b7/token/js/src/instructions/types.ts#L6
             // Transfer
-            3,
+            // int32
+            ...unpack("C*", pack("C", 3)),
 
             // int64
             ...unpack("C*", pack("P", $usdc))
@@ -57,5 +58,22 @@ class SplTokenProgram extends Program
             $keys,
             $data
         );
+    }
+
+    /**
+     * @param string $pubKey
+     * @return mixed
+     */
+    public function getTokenAccountsByOwner(string $pubKey)
+    {
+        return $this->client->call('getTokenAccountsByOwner', [
+            $pubKey,
+            [
+                'programId' => self::SOLANA_TOKEN_PROGRAM_ID,
+            ],
+            [
+                'encoding' => 'jsonParsed',
+            ],
+        ]);
     }
 }
